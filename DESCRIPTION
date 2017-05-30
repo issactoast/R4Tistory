@@ -1,11 +1,13 @@
 Package: R4tistory
 Type: Package
-Title: What the Package Does (Title Case)
+Title: knitr for blogs on Tistory.com
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Author: Issac Lee
+Maintainer: Issac Lee <issactoast@gmail.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
+URL: http://github.com/issactoast/R4tistory
+BugReports: http://github.com/issactoast/R4tistory/issues
 Encoding: UTF-8
 LazyData: true
