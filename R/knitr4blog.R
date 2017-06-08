@@ -11,6 +11,7 @@
 #' @return html file but diffent className for the r code chunk
 #' @examples
 #' change_codeclass("abc.html", "language-r")
+#' @export
 change_codeclass <- function(fileName, className){
   myweb <- readLines(fileName)
   myweb <- gsub("pre class=\"r\"",
@@ -32,12 +33,14 @@ change_codeclass <- function(fileName, className){
 #' @examples
 #' # fileName should not have blank space
 #' knitr4blog("abc.Rmd")
+#' @importFrom rmarkdown render
+#' @export
 knitr4blog <- function(fileName, className = "language-r"){
   if (grep(" ", fileName) != 0) {
     warning("your fileName has blank, please use '_' instead of the blank. ex: 'file_name.Rmd'")
     return(NA)
   }
-  rmarkdown::render(fileName)
+  render(fileName)
   change_codeclass(paste0(gsub(".Rmd","", fileName),".html"),
                    className)
 }
