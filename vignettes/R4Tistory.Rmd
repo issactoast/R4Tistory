@@ -1,0 +1,41 @@
+---
+title: "R4Tistory Vignette"
+author: "Issac Lee"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+'R4Tistory' 팩키지는 티스토리 블로그를 하는 R유저들을 위한 팩키지 입니다. 현재 팩키지는 개인 사용 목적으로 만들었으며, 추후 티스토리 API를 통한 글올리기 기능을 갖추는 것을 목적으로 하고 있습니다.
+
+## kintr4blog 함수
+
+'knitr4blog' 함수는 티스토리에서 R코드 하이라이팅을 위한 세팅이 끝난 후(), 설정된 세팅에 맞게 knitting을 해주는 기능입니다.
+
+### 사용법
+
+1. 블로그에 올릴 Rmd 파일을 준비합니다. 단, 파일의 이름에는 공백이 없어야 합니다. 공백대신 밑줄('_')을 사용해 주세요.
+
+2. Rmd 파일의 헤더는 다음과 같이 설정해줍니다. 자세한 사항은 [포스팅](http://issactoast.com/63)을 참고하시기 바랍니다.
+
+```{r eval = FALSE}
+title: "제목"
+output:
+  html_document:
+    self_contained: TRUE
+    keep_md: FALSE
+    theme: NULL
+    highlight: NULL
+```
+
+3. 그 다음, 위와 같은 명령어를 사용해서 Rmd파일을  knitting 해줍니다.
+
+```{r eval = FALSE}
+library(R4Tistory)
+knitr4blog("yourfile.Rmd")
+```
+
+4. 결과물로 나온 파일을 브라우져에서 열기-> 소스코드 보기를 통하여 html파일을 자신의 티스토리 블로그에 html로 작성하기를 글쓰기 란에 그대로 붙여넣으시면 됩니다^[tip: 문단 간격없음을 클릭해주세요.]. (이 단계는 추후 함수를 통하여 자동화 하려고 합니다.)

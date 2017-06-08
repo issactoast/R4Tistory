@@ -4,6 +4,13 @@
 # example of the use of function:
 # knitr4blog("fileName.Rmd")
 
+#' Change code className in html file
+#'
+#' @param  fileName A name of your html file
+#' @param  className A className that your file to be
+#' @return html file but diffent className for the r code chunk
+#' @examples
+#' change_codeclass("abc.html", "language-r")
 change_codeclass <- function(fileName, className){
   myweb <- readLines(fileName)
   myweb <- gsub("pre class=\"r\"",
@@ -17,10 +24,16 @@ change_codeclass <- function(fileName, className){
               row.names = FALSE)
 }
 
-knitr4blog <- function(fileName){
+#' knitr your Rmd file with className = "language-r"
+#'
+#' @param  fileName A name of your Rmd file
+#' @param  className A className that your R code class to be
+#' @return kniting your Rmd file
+#' @examples
+#' # fileName should not have blank space
+#' knitr4blog("abc.Rmd")
+knitr4blog <- function(fileName, className = "language-r"){
   rmarkdown::render(fileName)
   change_codeclass(paste0(gsub(".Rmd","", fileName),".html"),
-                  "language-r")
+                   className)
 }
-
-
