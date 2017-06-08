@@ -33,6 +33,10 @@ change_codeclass <- function(fileName, className){
 #' # fileName should not have blank space
 #' knitr4blog("abc.Rmd")
 knitr4blog <- function(fileName, className = "language-r"){
+  if (grep(" ", fileName) != 0) {
+    warning("your fileName has blank, please use '_' instead of the blank. ex: 'file_name.Rmd'")
+    return(NA)
+  }
   rmarkdown::render(fileName)
   change_codeclass(paste0(gsub(".Rmd","", fileName),".html"),
                    className)
