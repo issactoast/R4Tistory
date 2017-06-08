@@ -36,11 +36,12 @@ change_codeclass <- function(fileName, className){
 #' @importFrom rmarkdown render
 #' @export
 knitr4blog <- function(fileName, className = "language-r"){
-  if (grep(" ", fileName) != 0) {
+  if (length(grep(" ", fileName)) != 0) {
     warning("your fileName has blank, please use '_' instead of the blank. ex: 'file_name.Rmd'")
     return(NA)
+  } else {
+    render(fileName)
+    change_codeclass(paste0(gsub(".Rmd","", fileName),".html"),
+                     className)
   }
-  render(fileName)
-  change_codeclass(paste0(gsub(".Rmd","", fileName),".html"),
-                   className)
 }
