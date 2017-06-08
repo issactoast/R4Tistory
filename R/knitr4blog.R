@@ -41,7 +41,8 @@ knitr4blog <- function(fileName, className = "language-r"){
     return(NA)
   } else {
     render(fileName)
-    change_codeclass(paste0(gsub(".Rmd","", fileName),".html"),
-                     className)
+    #change_codeclass(paste0(gsub(".Rmd","", fileName),".html"),
+    #                 className)
+    change_codeclass(paste0(fileName,".html"), className)
   }
 }
