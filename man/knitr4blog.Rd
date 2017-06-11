@@ -4,7 +4,7 @@
 \alias{knitr4blog}
 \title{knitr your Rmd file with className = "language-r"}
 \usage{
-knitr4blog(fileName, className = "language-r")
+knitr4blog(fileName, className = "r")
 }
 \arguments{
 \item{fileName}{A name of your Rmd file}
@@ -19,5 +19,5 @@ knitr your Rmd file with className = "language-r"
 }
 \examples{
 # fileName should not have blank space
-knitr4blog("abc.Rmd")
+# knitr4blog("abc.Rmd")
 }

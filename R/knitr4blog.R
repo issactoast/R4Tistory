@@ -10,7 +10,7 @@
 #' @param  className A className that your file to be
 #' @return html file but diffent className for the r code chunk
 #' @examples
-#' change_codeclass("abc.html", "language-r")
+#' # change_codeclass("abc.html", "language-r")
 #' @export
 change_codeclass <- function(fileName, className){
   if (className == "r") {
@@ -36,7 +36,7 @@ change_codeclass <- function(fileName, className){
 #' @return kniting your Rmd file
 #' @examples
 #' # fileName should not have blank space
-#' knitr4blog("abc.Rmd")
+#' # knitr4blog("abc.Rmd")
 #' @importFrom rmarkdown render
 #' @export
 knitr4blog <- function(fileName, className = "r"){
@@ -72,13 +72,14 @@ token_url_maker <- function(client_id, redirect_uri){
 #' @param  fileName the .Rmd file name you want to post to your blog
 #' @param  my_blogName your blogName xxx from blog address "http://xxx.tistory.com"
 #' @param  token the token you have obtained from the url generated from token_url_maker function
+#' @param  ... you can use className = "language-r" option in knitr4blog function
 #' @return posted blog on your blog
 #' @examples
 #' # fileName should not have blank space
 #' # Assume your file name is "test.Rmd"
 #' # Assume your blog address is "http://issactoast.tistory.com"
 #' my_token <- "your obtained token here"
-#' post2Tistory("test.Rmd", "issactoast", my_token)
+#' # post2Tistory("test.Rmd", "issactoast", my_token)
 #' @importFrom httr POST
 #' @export
 post2Tistory <- function(fileName, my_blogName, token, ...){

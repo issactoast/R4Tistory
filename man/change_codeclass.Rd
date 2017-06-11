@@ -18,5 +18,5 @@ html file but diffent className for the r code chunk
 Change code className in html file
 }
 \examples{
-change_codeclass("abc.html", "language-r")
+# change_codeclass("abc.html", "language-r")
 }

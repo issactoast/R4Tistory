@@ -1,7 +1,7 @@
 Package: R4Tistory
 Type: Package
 Title: knitr your Rmd for Tistory blogs
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Issac", "Lee", email = "issactoast@gmail.com",
   role = c("aut", "cre"))
 Description: Some convinient functions for R users who is blogging to Tistory.
@@ -9,12 +9,15 @@ Description: Some convinient functions for R users who is blogging to Tistory.
   of this package(will be updated). This package has a function which can change
   code tag. This package will allows users to post their Rmd file to Tistory.com
   directly.
+Depends: R (>= 3.4.0)
+Imports:
+  httr,
+  rmarkdown
+Suggests: knitr
 License: MIT
 URL: http://github.com/issactoast/R4tistory
 BugReports: http://github.com/issactoast/R4tistory/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-Suggests: knitr,
-    rmarkdown
 VignetteBuilder: knitr
