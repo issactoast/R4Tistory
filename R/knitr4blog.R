@@ -45,3 +45,45 @@ knitr4blog <- function(fileName, className = "language-r"){
                      className)
   }
 }
+
+# 토큰 요청 주소 만들기 Client-side flow - Implicit Grant
+#' Tistory token-page url maker
+#' @param  client_id the id that is obtained from Tistory
+#' @param  redirect_uri the redirect uri that is submitted to Tistory
+#' @return url that ask tistory to generate token for blogging
+#' @examples
+#' my_id <- "your client_id here"
+#' my_uri <- "your redirect_uri address here"
+#' token_url_maker(my_id, my_uri)
+#' @export
+token_url_maker <- function(client_id, redirect_uri){
+  base_url <- "https://www.tistory.com/oauth/authorize"
+  sprintf("%s?client_id=%s&redirect_uri=%s&response_type=token",
+          base_url, client_id, redirect_uri)
+}
+
+
+# 원격 포스팅 using httr package
+#' Post your Rmd file to Tistory
+#' @param  fileName the .Rmd file name you want to post to your blog
+#' @param  my_blogName your blogName xxx from blog address "http://xxx.tistory.com"
+#' @param  token the token you have obtained from the url generated from token_url_maker function
+#' @return posted blog on your blog
+#' @examples
+#' # fileName should not have blank space
+#' # Assume your file name is "test.Rmd"
+#' # Assume your blog address is "http://issactoast.tistory.com"
+#' my_token <- "your obtained token here"
+#' post2Tistory("test.Rmd", "issactoast", my_token)
+#' @importFrom httr POST
+#' @export
+post2Tistory <- function(fileName, my_blogName, token){
+  base_url  <- "https://www.tistory.com/apis/post/write"
+  my_contents <- readLines(fileName)
+  my_contents <- paste(as.character(my_contents), collapse = "\n")
+  fbody <- list(access_token = token,
+                blogName= my_blogName,
+                title = "sampleTitle2",
+                content= my_contents)
+  POST(turl, body = fbody, encode = "form")
+}
