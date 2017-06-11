@@ -93,5 +93,5 @@ post2Tistory <- function(fileName, my_blogName, token, ...){
                 blogName= my_blogName,
                 title = my_title,
                 content= my_contents)
-  POST(turl, body = fbody, encode = "form")
+  POST(base_url, body = fbody, encode = "form")
 }
