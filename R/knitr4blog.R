@@ -13,16 +13,20 @@
 #' change_codeclass("abc.html", "language-r")
 #' @export
 change_codeclass <- function(fileName, className){
-  myweb <- readLines(fileName)
-  myweb <- gsub("pre class=\"r\"",
-                paste0("pre class=\"", className,"\""),
-                myweb)
-  myweb <- paste(as.character(myweb), collapse = "\n")
-  write.table(myweb,
-              file = fileName,
-              quote = FALSE,
-              col.names = FALSE,
-              row.names = FALSE)
+  if (className == "r") {
+    return(NA)
+  } else {
+    myweb <- readLines(fileName)
+    myweb <- gsub("pre class=\"r\"",
+                  paste0("pre class=\"", className,"\""),
+                  myweb)
+    myweb <- paste(as.character(myweb), collapse = "\n")
+    write.table(myweb,
+                file = fileName,
+                quote = FALSE,
+                col.names = FALSE,
+                row.names = FALSE)
+  }
 }
 
 #' knitr your Rmd file with className = "language-r"
@@ -35,7 +39,7 @@ change_codeclass <- function(fileName, className){
 #' knitr4blog("abc.Rmd")
 #' @importFrom rmarkdown render
 #' @export
-knitr4blog <- function(fileName, className = "language-r"){
+knitr4blog <- function(fileName, className = "r"){
   if (length(grep(" ", fileName)) != 0) {
     warning("your fileName has blank, please use '_' instead of the blank. ex: 'file_name.Rmd'")
     return(NA)
@@ -77,13 +81,16 @@ token_url_maker <- function(client_id, redirect_uri){
 #' post2Tistory("test.Rmd", "issactoast", my_token)
 #' @importFrom httr POST
 #' @export
-post2Tistory <- function(fileName, my_blogName, token){
-  base_url  <- "https://www.tistory.com/apis/post/write"
-  my_contents <- readLines(fileName)
+post2Tistory <- function(fileName, my_blogName, token, ...){
+  knitr4blog(fileName, ...)
+  my_contents <- readLines(paste0(gsub(".Rmd","", fileName),".html"))
+  my_title <- my_contents[grep("<title>", my_contents)]
+  my_title <- gsub("<title>|</title>", "", my_title)
   my_contents <- paste(as.character(my_contents), collapse = "\n")
+  base_url  <- "https://www.tistory.com/apis/post/write"
   fbody <- list(access_token = token,
                 blogName= my_blogName,
-                title = "sampleTitle2",
+                title = my_title,
                 content= my_contents)
   POST(turl, body = fbody, encode = "form")
 }
