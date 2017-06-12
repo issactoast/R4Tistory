@@ -1,7 +1,7 @@
 Package: R4Tistory
 Type: Package
 Title: knitr your Rmd for Tistory blogs
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: person("Issac", "Lee", email = "issactoast@gmail.com",
   role = c("aut", "cre"))
 Description: Some convinient functions for R users who is blogging to Tistory.
