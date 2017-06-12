@@ -72,6 +72,8 @@ token_url_maker <- function(client_id, redirect_uri){
 #' @param  fileName the .Rmd file name you want to post to your blog
 #' @param  my_blogName your blogName xxx from blog address "http://xxx.tistory.com"
 #' @param  token the token you have obtained from the url generated from token_url_maker function
+#' @param  modify default value is NULL. When modify set to NULL it means your Rmd will be posted as a new post
+#' If you want to modify the existing post, feed the number of the post to the modify variable.
 #' @param  ... you can use className = "language-r" option in knitr4blog function
 #' @return posted blog on your blog
 #' @examples
@@ -80,18 +82,24 @@ token_url_maker <- function(client_id, redirect_uri){
 #' # Assume your blog address is "http://issactoast.tistory.com"
 #' my_token <- "your obtained token here"
 #' # post2Tistory("test.Rmd", "issactoast", my_token)
+#' # post2Tistory("test.Rmd", "issactoast", my_token, modify = 42)
 #' @importFrom httr POST
 #' @export
-post2Tistory <- function(fileName, my_blogName, token, ...){
+post2Tistory <- function(fileName, my_blogName, token, modify = NULL, ...){
   knitr4blog(fileName, ...)
   my_contents <- readLines(paste0(gsub(".Rmd","", fileName),".html"))
   my_title <- my_contents[grep("<title>", my_contents)]
   my_title <- gsub("<title>|</title>", "", my_title)
   my_contents <- paste(as.character(my_contents), collapse = "\n")
+
   base_url  <- "https://www.tistory.com/apis/post/write"
   fbody <- list(access_token = token,
                 blogName= my_blogName,
                 title = my_title,
                 content= my_contents)
+  if (is.null(modify) != TRUE) {
+    base_url <- "https://www.tistory.com/apis/post/modify"
+    fbody$postId <- as.character(modify)
+  }
   POST(base_url, body = fbody, encode = "form")
 }

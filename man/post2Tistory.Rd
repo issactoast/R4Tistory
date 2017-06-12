@@ -4,7 +4,7 @@
 \alias{post2Tistory}
 \title{Post your Rmd file to Tistory}
 \usage{
-post2Tistory(fileName, my_blogName, token, ...)
+post2Tistory(fileName, my_blogName, token, modify = NULL, ...)
 }
 \arguments{
 \item{fileName}{the .Rmd file name you want to post to your blog}
@@ -12,6 +12,9 @@ post2Tistory(fileName, my_blogName, token, ...)
 \item{my_blogName}{your blogName xxx from blog address "http://xxx.tistory.com"}
 
 \item{token}{the token you have obtained from the url generated from token_url_maker function}
+
+\item{modify}{default value is NULL. When modify set to NULL it means your Rmd will be posted as a new post
+If you want to modify the existing post, feed the number of the post to the modify variable.}
 
 \item{...}{you can use className = "language-r" option in knitr4blog function}
 }
@@ -27,4 +30,5 @@ Post your Rmd file to Tistory
 # Assume your blog address is "http://issactoast.tistory.com"
 my_token <- "your obtained token here"
 # post2Tistory("test.Rmd", "issactoast", my_token)
+# post2Tistory("test.Rmd", "issactoast", my_token, modify = 42)
 }
