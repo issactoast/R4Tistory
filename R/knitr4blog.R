@@ -60,7 +60,8 @@ knitr4blog <- function(fileName, className = "r"){
 #' my_uri <- "your redirect_uri address here"
 #' token_url_maker(my_id, my_uri)
 #' @export
-token_url_maker <- function(client_id, redirect_uri){
+token_url_maker <- function(client_id = "3a5ef7ff3d180eac94d5df5e58ba1768",
+                            redirect_uri = "http://issactoast.com/77"){
   base_url <- "https://www.tistory.com/oauth/authorize"
   sprintf("%s?client_id=%s&redirect_uri=%s&response_type=token",
           base_url, client_id, redirect_uri)
