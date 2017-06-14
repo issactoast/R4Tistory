@@ -16,7 +16,7 @@ post2Tistory(fileName, my_blogName, token, modify = NULL, tag = NULL, ...)
 \item{modify}{default value is NULL. When modify set to NULL it means your Rmd will be posted as a new post
 If you want to modify the existing post, feed the number of the post to the modify variable.}
 
-\item{tag}{the tag of your Rmd file. you can use multiple tags using c("tagA", "tagB", ...)}
+\item{tag}{the tag of your Rmd file. you can use multiple tags using "tagA, tagB, tagC"}
 
 \item{...}{you can use className = "language-r" option in knitr4blog function}
 }

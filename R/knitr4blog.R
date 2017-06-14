@@ -76,7 +76,7 @@ token_url_maker <- function(client_id = "3a5ef7ff3d180eac94d5df5e58ba1768",
 #' @param  token the token you have obtained from the url generated from token_url_maker function
 #' @param  modify default value is NULL. When modify set to NULL it means your Rmd will be posted as a new post
 #' If you want to modify the existing post, feed the number of the post to the modify variable.
-#' @param  tag the tag of your Rmd file. you can use multiple tags using c("tagA", "tagB", ...)
+#' @param  tag the tag of your Rmd file. you can use multiple tags using "tagA, tagB, tagC"
 #' @param  ... you can use className = "language-r" option in knitr4blog function
 #' @return posted blog on your blog
 #' @examples
@@ -104,7 +104,6 @@ post2Tistory <- function(fileName,
   my_title <- gsub("<title>|</title>", "", my_title)
   
   # grab meta tag and h1 tag and delete
-  my_contents <- my_contents[-grep("<meta", my_contents)]
   my_contents <- my_contents[grep("</h1>", my_contents)]
 
   # make html again  
@@ -120,7 +119,7 @@ post2Tistory <- function(fileName,
     fbody$postId <- as.character(modify)
   }
   if (is.null(tag) != TRUE) {
-      fbody$tag <- as.character(tag)
+      fbody$tag <- tag
   }
   POST(base_url, body = fbody, encode = "form")
 }
