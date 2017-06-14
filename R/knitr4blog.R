@@ -95,9 +95,19 @@ post2Tistory <- function(fileName,
                          tag = NULL,
                          ...){
   knitr4blog(fileName, ...)
+  my_contents <- readLines("test.html")
+  # html read    
   my_contents <- readLines(paste0(gsub(".Rmd","", fileName),".html"))
+  
+  # grab title
   my_title <- my_contents[grep("<title>", my_contents)]
   my_title <- gsub("<title>|</title>", "", my_title)
+  
+  # grab meta tag and h1 tag and delete
+  my_contents <- my_contents[-grep("<meta", my_contents)]
+  my_contents <- my_contents[grep("</h1>", my_contents)]
+
+  # make html again  
   my_contents <- paste(as.character(my_contents), collapse = "\n")
 
   base_url  <- "https://www.tistory.com/apis/post/write"
