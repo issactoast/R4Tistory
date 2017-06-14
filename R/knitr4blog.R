@@ -50,11 +50,11 @@ knitr4blog <- function(fileName, className = "r"){
   }
 }
 
-# 토큰 요청 주소 만들기 Client-side flow - Implicit Grant
+#  URL maker (Client-side flow - Implicit Grant)
 #' Tistory token-page url maker
 #' @param  client_id the id that is obtained from Tistory
 #' @param  redirect_uri the redirect uri that is submitted to Tistory
-#' @return url that ask tistory to generate token for blogging
+#' @return browser automatically will be open containing url that token for blogging
 #' @examples
 #' my_id <- "your client_id here"
 #' my_uri <- "your redirect_uri address here"
@@ -63,18 +63,20 @@ knitr4blog <- function(fileName, className = "r"){
 token_url_maker <- function(client_id = "3a5ef7ff3d180eac94d5df5e58ba1768",
                             redirect_uri = "http://issactoast.com/77"){
   base_url <- "https://www.tistory.com/oauth/authorize"
-  sprintf("%s?client_id=%s&redirect_uri=%s&response_type=token",
-          base_url, client_id, redirect_uri)
+  url <- sprintf("%s?client_id=%s&redirect_uri=%s&response_type=token",
+                 base_url, client_id, redirect_uri)
+  browseURL(url, browser = getOption("browser"))
 }
 
 
-# 원격 포스팅 using httr package
+#  Posting Rmd using httr package
 #' Post your Rmd file to Tistory
 #' @param  fileName the .Rmd file name you want to post to your blog
 #' @param  my_blogName your blogName xxx from blog address "http://xxx.tistory.com"
 #' @param  token the token you have obtained from the url generated from token_url_maker function
 #' @param  modify default value is NULL. When modify set to NULL it means your Rmd will be posted as a new post
 #' If you want to modify the existing post, feed the number of the post to the modify variable.
+#' @param  tag the tag of your Rmd file. you can use multiple tags using c("tagA", "tagB", ...)
 #' @param  ... you can use className = "language-r" option in knitr4blog function
 #' @return posted blog on your blog
 #' @examples
@@ -86,7 +88,12 @@ token_url_maker <- function(client_id = "3a5ef7ff3d180eac94d5df5e58ba1768",
 #' # post2Tistory("test.Rmd", "issactoast", my_token, modify = 42)
 #' @importFrom httr POST
 #' @export
-post2Tistory <- function(fileName, my_blogName, token, modify = NULL, ...){
+post2Tistory <- function(fileName,
+                         my_blogName,
+                         token,
+                         modify = NULL,
+                         tag = NULL,
+                         ...){
   knitr4blog(fileName, ...)
   my_contents <- readLines(paste0(gsub(".Rmd","", fileName),".html"))
   my_title <- my_contents[grep("<title>", my_contents)]
@@ -101,6 +108,9 @@ post2Tistory <- function(fileName, my_blogName, token, modify = NULL, ...){
   if (is.null(modify) != TRUE) {
     base_url <- "https://www.tistory.com/apis/post/modify"
     fbody$postId <- as.character(modify)
+  }
+  if (is.null(tag) != TRUE) {
+      fbody$tag <- as.character(tag)
   }
   POST(base_url, body = fbody, encode = "form")
 }
