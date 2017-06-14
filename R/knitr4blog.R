@@ -104,7 +104,7 @@ post2Tistory <- function(fileName,
   my_title <- gsub("<title>|</title>", "", my_title)
   
   # grab meta tag and h1 tag and delete
-  my_contents <- my_contents[grep("</h1>", my_contents)]
+  my_contents <- my_contents[-grep("</h1>", my_contents)]
 
   # make html again  
   my_contents <- paste(as.character(my_contents), collapse = "\n")
