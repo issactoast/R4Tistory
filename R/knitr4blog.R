@@ -95,7 +95,7 @@ post2Tistory <- function(fileName,
                          tag = NULL,
                          ...){
   knitr4blog(fileName, ...)
-  my_contents <- readLines("test.html")
+
   # html read    
   my_contents <- readLines(paste0(gsub(".Rmd","", fileName),".html"))
   
