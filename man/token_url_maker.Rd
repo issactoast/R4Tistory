@@ -5,7 +5,7 @@
 \title{Tistory token-page url maker}
 \usage{
 token_url_maker(client_id = "3a5ef7ff3d180eac94d5df5e58ba1768",
-  redirect_uri = "http://issactoast.com/77")
+  redirect_uri = "http://issactoast.com/81")
 }
 \arguments{
 \item{client_id}{the id that is obtained from Tistory}
