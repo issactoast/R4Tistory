@@ -5,7 +5,7 @@
 \title{Post your Rmd file to Tistory}
 \usage{
 post2Tistory(fileName, my_blogName, token, modify = NULL, tag = NULL,
-  encoding = getOption("encoding"))
+  encoding = getOption("encoding"), ...)
 }
 \arguments{
 \item{fileName}{the .Rmd file name you want to post to your blog}

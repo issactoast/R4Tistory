@@ -99,7 +99,8 @@ post2Tistory <- function(fileName,
                          token,
                          modify = NULL,
                          tag = NULL,
-                         encoding = getOption("encoding")){
+                         encoding = getOption("encoding"),
+                         ...){
   knitr4blog(fileName, encoding = encoding, ...)
 
   # html read
