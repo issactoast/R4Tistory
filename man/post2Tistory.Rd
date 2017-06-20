@@ -4,7 +4,8 @@
 \alias{post2Tistory}
 \title{Post your Rmd file to Tistory}
 \usage{
-post2Tistory(fileName, my_blogName, token, modify = NULL, tag = NULL, ...)
+post2Tistory(fileName, my_blogName, token, modify = NULL, tag = NULL,
+  encoding = getOption("encoding"))
 }
 \arguments{
 \item{fileName}{the .Rmd file name you want to post to your blog}
@@ -17,6 +18,8 @@ post2Tistory(fileName, my_blogName, token, modify = NULL, tag = NULL, ...)
 If you want to modify the existing post, feed the number of the post to the modify variable.}
 
 \item{tag}{the tag of your Rmd file. you can use multiple tags using "tagA, tagB, tagC"}
+
+\item{encoding}{switch encoding. defalut option follows system default}
 
 \item{...}{you can use className = "language-r" option in knitr4blog function}
 }

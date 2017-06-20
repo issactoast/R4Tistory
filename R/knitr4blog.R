@@ -82,6 +82,7 @@ token_url_maker <- function(NoInput = NULL){
 #' @param  modify default value is NULL. When modify set to NULL it means your Rmd will be posted as a new post
 #' If you want to modify the existing post, feed the number of the post to the modify variable.
 #' @param  tag the tag of your Rmd file. you can use multiple tags using "tagA, tagB, tagC"
+#' @param  encoding switch encoding. defalut option follows system default
 #' @param  ... you can use className = "language-r" option in knitr4blog function
 #' @return posted blog on your blog
 #' @examples
@@ -98,11 +99,11 @@ post2Tistory <- function(fileName,
                          token,
                          modify = NULL,
                          tag = NULL,
-                         ...){
-  knitr4blog(fileName, ...)
+                         encoding = getOption("encoding")){
+  knitr4blog(fileName, encoding = encoding, ...)
 
   # html read
-  my_contents <- readLines(paste0(gsub(".Rmd","", fileName),".html"))
+  my_contents <- readLines(paste0(gsub(".Rmd","", fileName),".html"), encoding = encoding)
 
   # grab title
   my_title <- my_contents[grep("<title>", my_contents)]
