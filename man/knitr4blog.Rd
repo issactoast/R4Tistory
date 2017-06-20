@@ -4,12 +4,14 @@
 \alias{knitr4blog}
 \title{knitr your Rmd file with className = "language-r"}
 \usage{
-knitr4blog(fileName, className = "r")
+knitr4blog(fileName, className = "r", ...)
 }
 \arguments{
 \item{fileName}{A name of your Rmd file}
 
 \item{className}{A className that your R code class to be}
+
+\item{...}{you can use other options for rmarkdown::render such as encoding option}
 }
 \value{
 kniting your Rmd file

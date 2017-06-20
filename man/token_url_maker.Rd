@@ -4,22 +4,19 @@
 \alias{token_url_maker}
 \title{Tistory token-page url maker}
 \usage{
-token_url_maker(client_id = "3a5ef7ff3d180eac94d5df5e58ba1768",
-  redirect_uri = "http://issactoast.com/81")
+token_url_maker(NoInput = NULL)
 }
 \arguments{
-\item{client_id}{the id that is obtained from Tistory}
-
-\item{redirect_uri}{the redirect uri that is submitted to Tistory}
+\item{NoInput}{this function has no inputs.}
 }
 \value{
-browser automatically will be open containing url that token for blogging
+browser automatically will be open containing url that token for
+ posting. the redirected web page will be taining news of this package
 }
 \description{
 Tistory token-page url maker
 }
 \examples{
-my_id <- "your client_id here"
-my_uri <- "your redirect_uri address here"
-token_url_maker(my_id, my_uri)
+# Getting token from url
+# token_url_maker()
 }

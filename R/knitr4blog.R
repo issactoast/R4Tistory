@@ -33,18 +33,19 @@ change_codeclass <- function(fileName, className){
 #'
 #' @param  fileName A name of your Rmd file
 #' @param  className A className that your R code class to be
+#' @param  ... you can use other options for rmarkdown::render such as encoding option
 #' @return kniting your Rmd file
 #' @examples
 #' # fileName should not have blank space
 #' # knitr4blog("abc.Rmd")
 #' @importFrom rmarkdown render
 #' @export
-knitr4blog <- function(fileName, className = "r"){
+knitr4blog <- function(fileName, className = "r", ...){
   if (length(grep(" ", fileName)) != 0) {
     warning("your fileName has blank, please use '_' instead of the blank. ex: 'file_name.Rmd'")
     return(NA)
   } else {
-    render(fileName)
+    render(fileName, ...)
     change_codeclass(paste0(gsub(".Rmd","", fileName),".html"),
                      className)
   }
@@ -52,22 +53,26 @@ knitr4blog <- function(fileName, className = "r"){
 
 #  URL maker (Client-side flow - Implicit Grant)
 #' Tistory token-page url maker
-#' @param  client_id the id that is obtained from Tistory
-#' @param  redirect_uri the redirect uri that is submitted to Tistory
-#' @return browser automatically will be open containing url that token for blogging
+#' @param  NoInput this function has no inputs.
+#' @return browser automatically will be open containing url that token for
+#'  posting. the redirected web page will be taining news of this package
 #' @examples
-#' my_id <- "your client_id here"
-#' my_uri <- "your redirect_uri address here"
-#' token_url_maker(my_id, my_uri)
+#' # Getting token from url
+#' # token_url_maker()
 #' @export
-token_url_maker <- function(client_id = "3a5ef7ff3d180eac94d5df5e58ba1768",
-                            redirect_uri = "http://issactoast.com/81"){
+token_url_maker <- function(NoInput = NULL){
+  if (is.null(NoInput) != TRUE) {
+    print("version.0.1.4 provides client_id and uri")
+    print("please type only 'token_url_maker()'.")
+  }
+  print("redirect to package website. copy token from browser's URL.")
+  client_id = "3a5ef7ff3d180eac94d5df5e58ba1768"
+  redirect_uri = "http://issactoast.com/81"
   base_url <- "https://www.tistory.com/oauth/authorize"
   url <- sprintf("%s?client_id=%s&redirect_uri=%s&response_type=token",
                  base_url, client_id, redirect_uri)
   browseURL(url, browser = getOption("browser"))
 }
-
 
 #  Posting Rmd using httr package
 #' Post your Rmd file to Tistory
@@ -96,17 +101,17 @@ post2Tistory <- function(fileName,
                          ...){
   knitr4blog(fileName, ...)
 
-  # html read    
+  # html read
   my_contents <- readLines(paste0(gsub(".Rmd","", fileName),".html"))
-  
+
   # grab title
   my_title <- my_contents[grep("<title>", my_contents)]
   my_title <- gsub("<title>|</title>", "", my_title)
-  
+
   # grab meta tag and h1 tag and delete
   my_contents <- my_contents[-grep("</h1>", my_contents)]
 
-  # make html again  
+  # make html again
   my_contents <- paste(as.character(my_contents), collapse = "\n")
 
   base_url  <- "https://www.tistory.com/apis/post/write"
