@@ -130,3 +130,62 @@ post2Tistory <- function(fileName,
   }
   POST(base_url, body = fbody, encode = "form")
 }
+
+
+word2Tistory <- function(fileName,
+                         my_blogName,
+                         token,
+                         modify = NULL,
+                         tag = NULL,
+                         encoding = getOption("encoding"),
+                         ...){
+  fileName <- "README.md"
+  # grab filename without dot
+  fileNameNoDot <- gsub(".docx","", fileName)
+
+  # transform word to md
+  system(paste0("pandoc -s ", fileNameNoDot, ".docx -t markdown -o ", fileNameNoDot, ".md"))
+
+  # read md
+  my_md <- readLines(paste0(fileNameNoDot,".md"), encoding = encoding)
+
+  # grab title & subtitle
+  my_subtitle <- my_md[grep("^subtitle:$", my_contents)]
+  my_title <- my_md[grep("^title:$", my_contents)]
+
+
+  my_test <- rbind(my_md[3], my_md[1])
+  paste(as.character(my_test), collapse = "\n")
+  mode(my_md)
+
+  # transform md
+  knitr4blog(paste0(fileNameNoDot,".Rmd"), encoding = encoding, ...)
+
+  # html read
+  my_contents <- readLines(paste0(gsub(".Rmd","", fileName),".html"), encoding = encoding)
+
+  # grab title
+  my_title <- my_contents[grep("<title>", my_contents)]
+  my_title <- gsub("<title>|</title>", "", my_title)
+
+  # grab meta tag and h1 tag and delete
+  my_contents <- my_contents[-grep("</h1>", my_contents)]
+
+  # make html again
+  my_contents <- paste(as.character(my_contents), collapse = "\n")
+
+  base_url  <- "https://www.tistory.com/apis/post/write"
+  fbody <- list(access_token = token,
+                blogName= my_blogName,
+                title = my_title,
+                content= my_contents)
+  if (is.null(modify) != TRUE) {
+    base_url <- "https://www.tistory.com/apis/post/modify"
+    fbody$postId <- as.character(modify)
+  }
+  if (is.null(tag) != TRUE) {
+    fbody$tag <- tag
+  }
+  POST(base_url, body = fbody, encode = "form")
+}
+
