@@ -29,6 +29,81 @@ change_codeclass <- function(fileName, className){
   }
 }
 
+#' Extract and change HTML to Tistory input html
+#'
+#' @param  fileName A name of your html file
+#' @param  className A className that your file to be
+#' @return html file but diffent className for the r code chunk
+#' @examples
+#' # change2Tistoryhtml("abc.html")
+#' # change2Tistoryhtml("abc.html", "language-r")
+#' @export
+change2Tistoryhtml <- function(fileName, className = "language-r"){
+  myweb <- readLines(fileName)
+  
+  # body part grab
+  myweb <- myweb[(grep("<h4 class=\"date\">", myweb)+1):(grep("<!-- code folding -->", myweb)-1)]
+  
+  # h tag change
+  myweb <- gsub("<h1>",
+                "<h2>",
+                myweb)
+  
+  myweb <- gsub("</h1>",
+                "</h2>",
+                myweb)
+  
+  myweb <- gsub("<h2>",
+                "<h2 data-ke-size=\"size26\">",
+                myweb)
+  myweb <- gsub("<h3>",
+                "<h3 data-ke-size=\"size26\">",
+                myweb)
+  myweb <- gsub("<h4>",
+                "<h4 data-ke-size=\"size26\">",
+                myweb)
+  
+  # p tag change
+  myweb <- gsub("<p>",
+                "<p data-ke-size=\"size18\">",
+                myweb)
+  
+  # R code change
+  myweb <- gsub("pre class=\"r\"",
+                paste0("pre class=\"", className,"\""),
+                myweb)
+  
+  # ul tag change
+  myweb <- gsub("<ul>",
+                "<ul style=\"list-style-type: disc;\" data-ke-list-type=\"disc\">",
+                myweb)
+  
+  # hr tag change
+  myweb <- gsub("<hr />",
+                "<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />",
+                myweb)
+  
+  # blockquote tag change
+  myweb <- gsub("<blockquote>",
+                "<blockquote data-ke-size=\"size18\" data-ke-style=\"style3\">",
+                myweb)
+  
+  # title capture
+  # my_title <- myweb[grep("<title>", myweb)]
+  # my_title <- gsub("<title>|</title>", "", my_title)
+  
+  # div tag delete
+  myweb <- gsub("<div[^>]*>|</div>", "", myweb)
+  
+  myweb <- paste(as.character(myweb), collapse = "\n")
+  write.table(myweb,
+              file = paste0(fileName,"Tistory"),
+              quote = FALSE,
+              col.names = FALSE,
+              row.names = FALSE)
+}
+
+
 #' knitr your Rmd file with className = "language-r"
 #'
 #' @param  fileName A name of your Rmd file
