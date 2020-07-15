@@ -69,8 +69,8 @@ change2Tistoryhtml <- function(fileName, className = "language-r"){
                 myweb)
   
   # R code change
-  myweb <- gsub("pre class=\"r\"",
-                paste0("pre class=\"", className,"\""),
+  myweb <- gsub("pre class=\"r",
+                paste0("pre class=\"", className),
                 myweb)
   
   # ul tag change
