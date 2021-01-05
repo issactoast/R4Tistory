@@ -39,8 +39,8 @@ change_codeclass <- function(fileName, className){
 #' # change2Tistoryhtml("abc.html", "language-r")
 #' @export
 change2Tistoryhtml <- function(fileName, className = "language-r"){
-  myweb <- readLines(fileName)
-  
+  myweb <- readLines(fileName, encoding="UTF-8")
+
   # body part grab
   myweb <- myweb[(grep("<h4 class=\"date\">", myweb)+1):(grep("<!-- code folding -->", myweb)-1)]
   
