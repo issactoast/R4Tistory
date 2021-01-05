@@ -100,7 +100,8 @@ change2Tistoryhtml <- function(fileName, className = "language-r"){
               file = paste0(fileName,"Tistory"),
               quote = FALSE,
               col.names = FALSE,
-              row.names = FALSE)
+              row.names = FALSE,
+              fileEncoding="UTF-8")
 }
 
 
