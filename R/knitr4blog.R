@@ -96,12 +96,12 @@ change2Tistoryhtml <- function(fileName, className = "language-r"){
   myweb <- gsub("<div[^>]*>|</div>", "", myweb)
   
   myweb <- paste(as.character(myweb), collapse = "\n")
+  Encoding(myweb) <- "UTF-16"
   write.table(myweb,
               file = paste0(fileName,"Tistory"),
               quote = FALSE,
               col.names = FALSE,
-              row.names = FALSE,
-              fileEncoding="UTF-8")
+              row.names = FALSE) # fileEncoding="UTF-8"
 }
 
 
